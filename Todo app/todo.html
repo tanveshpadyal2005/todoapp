@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo app</title>
+    <style>
+        ul li {
+            list-style: none;
+        }
+
+        li img {
+            width: 20px;
+            cursor: pointer;
+        }
+
+        input[type='checkbox']:checked~.all_list li {
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="text" name="inpbtn" id="inpbtn">
+
+        <button onclick="addTask()">add task</button>
+        <span id="popup"></span>
+    </div>
+    <ul id="all_list" name="link">
+
+    </ul>
+
+
+
+
+    <script>
+
+        const inputData = document.getElementById('inpbtn');
+        const allList = document.getElementById('all_list');
+        const addlist = [];
+
+        const img = document.createElement('img');
+
+        function addTask() {
+            if (inputData.value == "") {
+                document.getElementById('popup').innerHTML = "<p>Please enter a data value</p>"
+                inputData.style.border = '1px solid red'
+            }
+            else {
+                const li = document.createElement('li');
+                const litext = document.createTextNode(inputData.value)
+                li.appendChild(litext);
+                allList.appendChild(li);
+
+                const checkinp = document.createElement('input');
+
+                checkinp.type = 'checkbox';
+                li.insertBefore(checkinp, litext);
+
+                img.src = './shape.png'
+
+
+
+
+                li.appendChild(img)
+
+
+            }
+
+
+            localStorage.setItem('list', allList.innerHTML);
+
+        }
+
+
+        window.onload = function () {
+            const getitem = localStorage.getItem('list');
+            allList.innerHTML = getitem;
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>
